@@ -182,10 +182,325 @@ html {
   background: url("/images/site/checkerboard.jpg");
 }
 
+/* INVENTORY DISPLAY */
+#inv-display {
+  padding-top: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#inv-display li {
+  list-style: none;
+  font-family: var(--other-font);
+  border: grey solid 2px;
+  width: 80%;
+  border-radius: 30px;
+}
+
+#inv-display img {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  object-fit: cover;
+}
+
+#inv-display li a {
+  text-decoration: none;
+}
+
+#inv-display li hr {
+  display: none;
+}
+
+#item-display {
+  display: flex;
+  flex-direction: row;
+}
+
+#item-display img {
+  width: 75%;
+  height: 75%;
+  object-fit: cover;
+  margin: 25px;
+}
+
+h1 {
+  font-family: var(--heading-font);
+}
+.car-details {
+  font-family: var(--other-font);
+  text-align: left;
+}
+
+.grey {
+  background-color: lightgrey;
+  width: 50%;
+  padding: 5px;
+}
+.details {
+  font-weight: bold;
+}
+
+.not-found {
+  width: 100%;
+}
+
+
+/* Global Styles */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Custom Section: Car Listings */
+#inv-display li {
+  list-style: none;
+  padding: 20px;
+  margin: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+#inv-display li:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 2px solid #001eb3;
+}
+
+#inv-display li img {
+  display: block;
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+#inv-display li h3 {
+  margin: 0 0 10px;
+  color: #001eb3;
+  font-size: 1.5rem;
+}
+
+/* Details Section */
+/* .car-details {
+  padding: 20px;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  text-align: center;
+}
+
+.car-details h2 {
+  font-size: 2rem;
+  color: #001eb3;
+  margin-bottom: 15px;
+}
+
+.car-details p {
+  line-height: 1.6;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.car-details img {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+} */
+.details-info {
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+  align-items: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9fa, #e3e3e3); /* Soft gradient background */
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.details-info:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.details-info img {
+  border-radius: 1rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.details-desc {
+  background: rgba(50, 50, 50, 0.9);
+  color: #fff;
+  border-radius: 1rem;
+  text-align: left;
+  padding: 1.5rem 2rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 480px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-left: 5px solid #ffcc00; /* Stylish highlight */
+}
+
+.details-desc span {
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+@media (max-width: 768px) {
+  .details-info {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .details-info img {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .details-desc {
+    max-width: 100%;
+    padding: 1.2rem;
+  }
+}
+
+/* Form Styling */
+.car-form {
+  padding: 20px;
+  margin: 20px auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+}
+
+.car-form h3 {
+  font-size: 1.8rem;
+  color: #001eb3;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.car-form label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.car-form input,
+.car-form select,
+.car-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+}
+
+.car-form input:focus,
+.car-form select:focus,
+.car-form textarea:focus {
+  outline: none;
+  border-color: #001eb3;
+  box-shadow: 0 0 5px rgba(0, 30, 179, 0.5);
+}
+
+.car-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #001eb3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.car-form button:hover {
+  background-color: #003d99;
+  transform: translateY(-3px);
+}
+
+/* General Form Styling */
+.car-form {
+  padding: 20px;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+  border: 2px solid #001eb3;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
+  font-family: 'Nunito Sans', serif;
+}
+
+/* Heading Styling */
+.car-form h3 {
+  font-size: 2.2rem;
+  color: #001eb3;
+  margin-bottom: 25px;
+  text-align: center;
+  font-family: 'Nunito Sans', serif;
+}
+
+/* Label Styling */
+.car-form label {
+  display: block;
+  margin: 12px 0 8px;
+  font-weight: bold;
+  color: #001eb3;
+}
+
+/* Input and Textarea Styling */
+.car-form input,
+.car-form select,
+.car-form textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  background-color: #ffffff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-form input:focus,
+.car-form select:focus,
+.car-form textarea:focus {
+  outline: none;
+  border-color: #001eb3;
+  box-shadow: 0 0 10px rgba(0, 30, 179, 0.5);
+}
+
+
+.car-form button:hover {
+  background-color: #003d99;
+  transform: translateY(-3px);
+}
+
+
+
 /* FOOTER */
 footer {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
   font-family: var(--other-font);
@@ -326,3 +641,4 @@ footer {
     width: 70%;
   }
 }
+

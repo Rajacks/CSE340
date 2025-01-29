@@ -1,0 +1,10 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+  <% } else { %>
+    <%- res.redirect('/') %>
+  <% } %>
+  
+  <%- message %>
+  <div>
+    <img class="not-found" src="/images/errors/24-cleverly-funny-crerative-404-error-pages-tinsanity-1024x511.webp" alt="">
+  </div> 
