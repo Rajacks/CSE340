@@ -122,6 +122,8 @@ Util.buildItemInventoryGrid = (inventoryData) => {
       <p><span>Year:</span> ${inventoryData.inv_year}</p>
      <p><span>Price:</span> $${inventoryData.inv_price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
       <p><span>Description:</span> ${inventoryData.inv_description}</p>
+      <p><span>Color:</span> ${inventoryData.inv_color}</p>
+      <p><span>Miles:</span> ${new Intl.NumberFormat('en-US').format(inventoryData.inv_miles)}</p>
       </div>
       </div>
   `;
