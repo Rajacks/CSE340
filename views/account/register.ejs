@@ -1,0 +1,51 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+  } %>
+
+
+<div class="form">
+    <form action="/account/register" method="post">
+        <label for="account_firstname">First name: </label>
+        <input type="text" name="account_firstname" id="account_firstname" required placeholder="Raymund"
+            value="<%= locals.account_firstname %>">
+
+        <label for="account_lastname">Last name: </label>
+        <input type="text" name="account_lastname" id="account_lastname" required placeholder="Antrone"
+            value="<%= locals.account_lastname %>">
+
+        <label for="account_email">Email: </label>
+        <input type="email" name="account_email" id="account_email" required
+            placeholder="raymundantrone@example.com" value="<%= locals.account_email %>">
+
+        <label for="account_password">Password: </label>
+        <div class="show-pword">
+            <input type="password" name="account_password" id="account_password" required placeholder="************"
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                title="Password must be at least 12 characters long and contains at least 1 uppercase, digit and special character.">
+            <span class="show" data-visible="false">Show</span>
+        </div>
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+
+        <input type="submit" id="submit" value="register">
+    </form>
+    <p>Already have an account? <span><a href="/account/login">Login</a></span></p>
+</div>
+
+<script>
+    document.querySelector('.show').addEventListener('click', function() {
+        const passwordInput = document.getElementById('account_password');
+        const isVisible = this.getAttribute('data-visible') === 'true';
+
+        if (isVisible) {
+            passwordInput.setAttribute('type', 'password');
+            this.innerText = 'Show';
+            this.setAttribute('data-visible', 'false');
+        } else {
+            passwordInput.setAttribute('type', 'text');
+            this.innerText = 'Hide';
+            this.setAttribute('data-visible', 'true');
+        }
+    });
+</script>
