@@ -29,7 +29,6 @@ invCont.buildByInventoryId = async function (req, res, next) {
   const result = await invModel.getInventoryByInventoryId(inventory_id);
   const data = result[0];
   const details = await utilities.buildItemInventoryGrid(data);
-  console.log(data);
   res.render("./inventory/product", {
     title: null,
     nav,
@@ -39,7 +38,6 @@ invCont.buildByInventoryId = async function (req, res, next) {
 };
 
 invCont.causeError = function (req, res, next) {
-  console.log("I am here");
   throw new Error("intentional error");
 };
 
