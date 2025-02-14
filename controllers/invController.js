@@ -37,6 +37,21 @@ invCont.buildByInventoryId = async function (req, res, next) {
   });
 };
 
+/* ***************************
+  Build Inventorey management view
+ * ************************** */
+  invCont.createInvManagement = async (req, res, next) => {
+    let nav = await utilities.getNav()
+    let classificationList = await utilities.buildClassificationList()
+    let inventory = await invModel.getInventory()
+    res.render('./inventory/management', {
+      title: 'Inventory Management',
+      nav,
+      inventory: inventory,
+      classificationList,
+    })
+  }
+
 invCont.causeError = function (req, res, next) {
   throw new Error("intentional error");
 };
