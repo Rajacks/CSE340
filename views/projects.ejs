@@ -9,29 +9,23 @@
 </section>
 
 <section class="project-list">
-  <article>
-    <h2>Community Cleanup</h2>
-    <p>
-      Work together with community members to clean and improve shared
-      public spaces.
-    </p>
-  </article>
+  <% projects.forEach(project => { %>
+    <article>
+      <h2>
+        <%= new Date(project.project_date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }) %>: <%= project.title %> (<%= project.organization_name %>)
+      </h2>
 
-  <article>
-    <h2>Food Distribution</h2>
-    <p>
-      Help organize and distribute food to individuals and families
-      in need.
-    </p>
-  </article>
+      <p><%= project.description %></p>
 
-  <article>
-    <h2>Youth Mentoring</h2>
-    <p>
-      Support young people through mentoring, guidance, and educational
-      activities.
-    </p>
-  </article>
+      <p>
+        <strong>Location:</strong> <%= project.location %>
+      </p>
+    </article>
+  <% }) %>
 </section>
 
 <%- include('partials/footer') %>
