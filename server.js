@@ -3,6 +3,7 @@ import express from "express";
 import { testConnection } from "./src/models/db.js";
 import { getAllOrganizations } from "./src/models/organizations.js";
 import { getAllProjects } from "./src/models/projects.js";
+import { getAllCategories } from "./src/models/categories.js";
 
 // Define the application environment
 const nodeEnv = process.env.NODE_ENV?.toLowerCase() || "production";
@@ -40,8 +41,11 @@ app.get("/projects", async (req, res) => {
 });
 
 // Categories page
-app.get("/categories", (req, res) => {
-  res.render("categories", { title: "Categories" });
+app.get("/categories", async (req, res) => {
+  const categories = await getAllCategories();
+  const title = "Categories";
+
+  res.render("categories", { title, categories });
 });
 
 app.listen(port, async () => {
