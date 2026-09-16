@@ -1,7 +1,7 @@
 <%- include('partials/header', { title: title }) %>
 
 <section class="page-header">
-  <h1>Service Projects</h1>
+  <h1><%= title %></h1>
   <p>
     Explore service projects that connect volunteers with meaningful
     opportunities to help others.
@@ -16,7 +16,13 @@
           year: 'numeric',
           month: 'short',
           day: 'numeric'
-        }) %>: <%= project.title %> (<%= project.organization_name %>)
+        }) %>:
+
+        <a href="/project/<%= project.project_id %>">
+          <%= project.title %>
+        </a>
+
+        (<%= project.organization_name %>)
       </h2>
 
       <p><%= project.description %></p>

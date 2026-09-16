@@ -2,8 +2,8 @@ import "dotenv/config";
 import express from "express";
 import { testConnection } from "./src/models/db.js";
 import { getAllOrganizations } from "./src/models/organizations.js";
-import { getAllProjects } from "./src/models/projects.js";
 import { getAllCategories } from "./src/models/categories.js";
+import router from "./src/routes.js";
 
 // Define the application environment
 const nodeEnv = process.env.NODE_ENV?.toLowerCase() || "production";
@@ -19,6 +19,9 @@ app.set("view engine", "ejs");
 // Serve static files from the public folder
 app.use(express.static("public"));
 
+// Use the routes from src/routes.js
+app.use(router);
+
 // Home page
 app.get("/", (req, res) => {
   res.render("home", { title: "Home" });
@@ -30,14 +33,6 @@ app.get("/organizations", async (req, res) => {
   const title = "Our Partner Organizations";
 
   res.render("organizations", { title, organizations });
-});
-
-// Projects page
-app.get("/projects", async (req, res) => {
-  const projects = await getAllProjects();
-  const title = "Service Projects";
-
-  res.render("projects", { title, projects });
 });
 
 // Categories page
