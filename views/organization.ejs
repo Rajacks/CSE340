@@ -17,7 +17,38 @@
     <strong>Organization ID:</strong>
     <%= organization.organization_id %>
   </p>
+</section>
 
+<section class="project-list">
+  <h2>Service Projects</h2>
+
+  <% projects.forEach(project => { %>
+    <article>
+      <h3>
+        <a href="/project/<%= project.project_id %>">
+          <%= project.title %>
+        </a>
+      </h3>
+
+      <p><%= project.description %></p>
+
+      <p>
+        <strong>Location:</strong> <%= project.location %>
+      </p>
+
+      <p>
+        <strong>Date:</strong>
+        <%= new Date(project.project_date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }) %>
+      </p>
+    </article>
+  <% }) %>
+</section>
+
+<section>
   <p>
     <a href="/projects">View Upcoming Projects</a>
   </p>

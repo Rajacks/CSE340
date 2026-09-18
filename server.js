@@ -1,8 +1,6 @@
 import "dotenv/config";
 import express from "express";
 import { testConnection } from "./src/models/db.js";
-import { getAllOrganizations } from "./src/models/organizations.js";
-import { getAllCategories } from "./src/models/categories.js";
 import router from "./src/routes.js";
 
 // Define the application environment
@@ -22,25 +20,20 @@ app.use(express.static("public"));
 // Use the routes from src/routes.js
 app.use(router);
 
-// Home page
-app.get("/", (req, res) => {
-  res.render("home", { title: "Home" });
+// 404 handler for routes that do not exist
+app.use((req, res) => {
+  res.status(404).render("errors/404", {
+    title: "Page Not Found",
+  });
 });
 
-// Organizations page
-app.get("/organizations", async (req, res) => {
-  const organizations = await getAllOrganizations();
-  const title = "Our Partner Organizations";
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err);
 
-  res.render("organizations", { title, organizations });
-});
-
-// Categories page
-app.get("/categories", async (req, res) => {
-  const categories = await getAllCategories();
-  const title = "Categories";
-
-  res.render("categories", { title, categories });
+  res.status(500).render("errors/500", {
+    title: "Server Error",
+  });
 });
 
 app.listen(port, async () => {
