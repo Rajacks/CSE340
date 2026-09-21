@@ -291,6 +291,53 @@ section h2 {
 }
 
 /* =========================
+   Organization Detail Header
+========================= */
+
+.organization-header {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.organization-logo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.organization-logo {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.organization-info {
+  text-align: center;
+}
+
+.organization-info h1 {
+  color: #17324d;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.organization-info p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #52616b;
+}
+
+.organization-header-space {
+  width: 160px;
+}
+
+/* =========================
    Category Tags
 ========================= */
 
