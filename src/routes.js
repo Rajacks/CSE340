@@ -3,6 +3,13 @@ import express from "express";
 import {
   showProjectsPage,
   showProjectDetailsPage,
+  showEditProjectForm,
+  processEditProjectForm,
+  showNewProjectForm,
+  processNewProjectForm,
+  showAssignCategoriesForm,
+  processAssignCategoriesForm,
+  projectValidation,
 } from "./controllers/projects.js";
 
 import {
@@ -30,6 +37,30 @@ router.get("/categories", showCategoriesPage);
 router.get("/projects", showProjectsPage);
 
 router.get("/project/:id", showProjectDetailsPage);
+
+/* =========================
+   Week 4 - Edit Project
+========================= */
+
+router.get("/edit-project/:id", showEditProjectForm);
+
+router.post("/edit-project/:id", processEditProjectForm);
+
+/* =========================
+   Week 4 - Create Project
+========================= */
+
+router.get("/new-project", showNewProjectForm);
+
+router.post("/new-project", projectValidation, processNewProjectForm);
+
+/* =========================
+   Week 4 - Assign Categories
+========================= */
+
+router.get("/assign-categories/:projectId", showAssignCategoriesForm);
+
+router.post("/assign-categories/:projectId", processAssignCategoriesForm);
 
 router.get("/organization/:id", showOrganizationDetailsPage);
 
