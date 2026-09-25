@@ -1,5 +1,9 @@
 import db from "./db.js";
 
+/* =========================
+   Get All Categories
+========================= */
+
 const getAllCategories = async () => {
   const query = `
         SELECT category_id, name
@@ -12,6 +16,10 @@ const getAllCategories = async () => {
   return result.rows;
 };
 
+/* =========================
+   Get Category Details
+========================= */
+
 const getCategoryDetails = async (categoryId) => {
   const query = `
         SELECT category_id, name
@@ -20,10 +28,15 @@ const getCategoryDetails = async (categoryId) => {
     `;
 
   const queryParams = [categoryId];
+
   const result = await db.query(query, queryParams);
 
   return result.rows.length > 0 ? result.rows[0] : null;
 };
+
+/* =========================
+   Get Categories By Project
+========================= */
 
 const getCategoriesByProjectId = async (projectId) => {
   const query = `
@@ -36,13 +49,62 @@ const getCategoriesByProjectId = async (projectId) => {
     `;
 
   const queryParams = [projectId];
+
   const result = await db.query(query, queryParams);
 
   return result.rows;
 };
 
 /* =========================
-   Week 4 - Assign Categories
+   W04 Assignment - Create Category
+========================= */
+
+const createCategory = async (name) => {
+  const query = `
+        INSERT INTO public.category (
+            name
+        )
+        VALUES ($1)
+        RETURNING category_id;
+    `;
+
+  const queryParams = [name];
+
+  const result = await db.query(query, queryParams);
+
+  if (result.rows.length === 0) {
+    throw new Error("Failed to create category");
+  }
+
+  return result.rows[0].category_id;
+};
+
+/* =========================
+   W04 Assignment - Update Category
+========================= */
+
+const updateCategory = async (categoryId, name) => {
+  const query = `
+        UPDATE public.category
+        SET
+            name = $1
+        WHERE category_id = $2
+        RETURNING category_id;
+    `;
+
+  const queryParams = [name, categoryId];
+
+  const result = await db.query(query, queryParams);
+
+  if (result.rows.length === 0) {
+    throw new Error("Category not found");
+  }
+
+  return result.rows[0].category_id;
+};
+
+/* =========================
+   W04 Assignment - Assign Categories
 ========================= */
 
 const assignCategoryToProject = async (projectId, categoryId) => {
@@ -77,6 +139,8 @@ export {
   getAllCategories,
   getCategoryDetails,
   getCategoriesByProjectId,
+  createCategory,
+  updateCategory,
   assignCategoryToProject,
   updateCategoryAssignments,
 };

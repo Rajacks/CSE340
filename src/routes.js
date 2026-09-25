@@ -15,56 +15,97 @@ import {
 import {
   showOrganizationsPage,
   showOrganizationDetailsPage,
+  showNewOrganizationForm,
+  processNewOrganizationForm,
+  showEditOrganizationForm,
+  processEditOrganizationForm,
+  organizationValidation,
 } from "./controllers/organizations.js";
 
 import {
   showCategoriesPage,
   showCategoryDetailsPage,
+  showNewCategoryForm,
+  processNewCategoryForm,
+  showEditCategoryForm,
+  processEditCategoryForm,
+  categoryValidation,
 } from "./controllers/categories.js";
 
 import { showTestError } from "./controllers/errors.js";
-
 import { showHomePage } from "./controllers/home.js";
 
 const router = express.Router();
 
+/* =========================
+   Home
+========================= */
+
 router.get("/", showHomePage);
+
+/* =========================
+   Organizations
+========================= */
 
 router.get("/organizations", showOrganizationsPage);
 
+router.get("/organization/:id", showOrganizationDetailsPage);
+
+router.get("/new-organization", showNewOrganizationForm);
+
+router.post(
+  "/new-organization",
+  organizationValidation,
+  processNewOrganizationForm,
+);
+
+router.get("/edit-organization/:id", showEditOrganizationForm);
+
+router.post(
+  "/edit-organization/:id",
+  organizationValidation,
+  processEditOrganizationForm,
+);
+
+/* =========================
+   Categories
+========================= */
+
 router.get("/categories", showCategoriesPage);
+
+router.get("/category/:id", showCategoryDetailsPage);
+
+router.get("/new-category", showNewCategoryForm);
+
+router.post("/new-category", categoryValidation, processNewCategoryForm);
+
+router.get("/edit-category/:id", showEditCategoryForm);
+
+router.post("/edit-category/:id", categoryValidation, processEditCategoryForm);
+
+/* =========================
+   Projects
+========================= */
 
 router.get("/projects", showProjectsPage);
 
 router.get("/project/:id", showProjectDetailsPage);
 
-/* =========================
-   Week 4 - Edit Project
-========================= */
-
 router.get("/edit-project/:id", showEditProjectForm);
 
-router.post("/edit-project/:id", processEditProjectForm);
-
-/* =========================
-   Week 4 - Create Project
-========================= */
+router.post("/edit-project/:id", projectValidation, processEditProjectForm);
 
 router.get("/new-project", showNewProjectForm);
 
 router.post("/new-project", projectValidation, processNewProjectForm);
 
-/* =========================
-   Week 4 - Assign Categories
-========================= */
-
 router.get("/assign-categories/:projectId", showAssignCategoriesForm);
 
 router.post("/assign-categories/:projectId", processAssignCategoriesForm);
 
-router.get("/organization/:id", showOrganizationDetailsPage);
-
-router.get("/category/:id", showCategoryDetailsPage);
+/* =========================
+   Testing
+========================= */
 
 router.get("/test-error", showTestError);
 
