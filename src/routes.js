@@ -35,6 +35,13 @@ import {
 import { showTestError } from "./controllers/errors.js";
 import { showHomePage } from "./controllers/home.js";
 
+import {
+  showUserRegistrationForm,
+  processUserRegistrationForm,
+  showLoginForm,
+  processLoginForm,
+} from "./controllers/users.js";
+
 const router = express.Router();
 
 /* =========================
@@ -42,6 +49,20 @@ const router = express.Router();
 ========================= */
 
 router.get("/", showHomePage);
+
+/* =========================
+   User Registration
+========================= */
+
+router.get("/register", showUserRegistrationForm);
+router.post("/register", processUserRegistrationForm);
+
+/* =========================
+   User Login
+========================= */
+
+router.get("/login", showLoginForm);
+router.post("/login", processLoginForm);
 
 /* =========================
    Organizations
