@@ -26,6 +26,12 @@ app.use(
 
 app.use(flash);
 
+// Make the logged-in user available to all EJS views
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
+
 // Configure EJS as the view engine
 app.set("view engine", "ejs");
 

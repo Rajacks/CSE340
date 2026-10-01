@@ -1,0 +1,36 @@
+<%- include("partials/header", { title: title }) %>
+
+<section class="page-header">
+  <h1>All Registered Users</h1>
+  <p>View all registered users and their roles.</p>
+</section>
+
+<section class="user-list">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role_name %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <p>
+    <a href="/dashboard">Back to Dashboard</a>
+  </p>
+</section>
+
+<%- include("partials/footer") %>

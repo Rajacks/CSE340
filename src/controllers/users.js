@@ -50,14 +50,14 @@ const processLoginForm = async (req, res) => {
     const user = await getUserByEmail(email);
 
     if (!user) {
-      req.flash("notice", "Invalid email or password.");
+      req.flash("error", "Invalid email or password.");
       return res.redirect("/login");
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!passwordMatch) {
-      req.flash("notice", "Invalid email or password.");
+      req.flash("error", "Invalid email or password.");
       return res.redirect("/login");
     }
 
@@ -78,9 +78,29 @@ const processLoginForm = async (req, res) => {
   }
 };
 
+/* =========================
+   User Logout
+========================= */
+
+const logoutUser = (req, res) => {
+  delete req.session.user;
+
+  req.flash("notice", "You have been logged out successfully.");
+
+  req.session.save((error) => {
+    if (error) {
+      console.error("Logout error:", error);
+      return res.redirect("/");
+    }
+
+    res.redirect("/");
+  });
+};
+
 export {
   showUserRegistrationForm,
   processUserRegistrationForm,
   showLoginForm,
   processLoginForm,
+  logoutUser,
 };

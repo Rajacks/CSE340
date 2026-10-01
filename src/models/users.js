@@ -33,4 +33,26 @@ const getUserByEmail = async (email) => {
   return result.rows[0];
 };
 
-export { createUser, getUserByEmail };
+/* =========================
+   Get All Users
+========================= */
+
+const getAllUsers = async () => {
+  const sql = `
+    SELECT
+      users.user_id,
+      users.name,
+      users.email,
+      roles.role_name
+    FROM users
+    JOIN roles
+      ON users.role_id = roles.role_id
+    ORDER BY users.user_id;
+  `;
+
+  const result = await db.query(sql);
+
+  return result.rows;
+};
+
+export { createUser, getUserByEmail, getAllUsers };

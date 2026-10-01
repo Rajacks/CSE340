@@ -65,11 +65,14 @@
 </section>
 
 <section>
-  <p>
-    <a href="/edit-organization/<%= organization.organization_id %>">
-      Edit Organization
-    </a>
-  </p>
+  <% if (user && user.role_id === 2) { %>
+    <p>
+      <a href="/edit-organization/<%= organization.organization_id %>">
+        Edit Organization
+      </a>
+    </p>
+  <% } %>
+
   <p><a href="/projects">View Upcoming Projects</a></p>
   <p><a href="/organizations">Back to Organizations</a></p>
 </section>
