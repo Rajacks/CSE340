@@ -3,6 +3,8 @@ import express from "express";
 import {
   showProjectsPage,
   showProjectDetailsPage,
+  addProjectVolunteer,
+  removeProjectVolunteer,
   showEditProjectForm,
   processEditProjectForm,
   showNewProjectForm,
@@ -57,7 +59,7 @@ router.get("/", showHomePage);
 
 router.get("/dashboard", requireLogin, showDashboard);
 
-router.get("/users", requireRole(2, "/dashboard"), showUsersPage);
+router.get("/users", requireLogin, requireRole(2, "/dashboard"), showUsersPage);
 
 /* =========================
    User Registration
@@ -87,19 +89,31 @@ router.get("/organizations", showOrganizationsPage);
 
 router.get("/organization/:id", showOrganizationDetailsPage);
 
-router.get("/new-organization", requireRole(2), showNewOrganizationForm);
+router.get(
+  "/new-organization",
+  requireLogin,
+  requireRole(2),
+  showNewOrganizationForm,
+);
 
 router.post(
   "/new-organization",
+  requireLogin,
   requireRole(2),
   organizationValidation,
   processNewOrganizationForm,
 );
 
-router.get("/edit-organization/:id", requireRole(2), showEditOrganizationForm);
+router.get(
+  "/edit-organization/:id",
+  requireLogin,
+  requireRole(2),
+  showEditOrganizationForm,
+);
 
 router.post(
   "/edit-organization/:id",
+  requireLogin,
   requireRole(2),
   organizationValidation,
   processEditOrganizationForm,
@@ -113,19 +127,26 @@ router.get("/categories", showCategoriesPage);
 
 router.get("/category/:id", showCategoryDetailsPage);
 
-router.get("/new-category", requireRole(2), showNewCategoryForm);
+router.get("/new-category", requireLogin, requireRole(2), showNewCategoryForm);
 
 router.post(
   "/new-category",
+  requireLogin,
   requireRole(2),
   categoryValidation,
   processNewCategoryForm,
 );
 
-router.get("/edit-category/:id", requireRole(2), showEditCategoryForm);
+router.get(
+  "/edit-category/:id",
+  requireLogin,
+  requireRole(2),
+  showEditCategoryForm,
+);
 
 router.post(
   "/edit-category/:id",
+  requireLogin,
   requireRole(2),
   categoryValidation,
   processEditCategoryForm,
@@ -139,19 +160,40 @@ router.get("/projects", showProjectsPage);
 
 router.get("/project/:id", showProjectDetailsPage);
 
-router.get("/edit-project/:id", requireRole(2), showEditProjectForm);
+/* =========================
+   Week 6 - Volunteering
+========================= */
+
+// Logged-in users can volunteer for a project.
+router.post("/project/:projectId/volunteer", requireLogin, addProjectVolunteer);
+
+// Logged-in users can remove their own volunteer signup.
+router.post(
+  "/project/:projectId/remove-volunteer",
+  requireLogin,
+  removeProjectVolunteer,
+);
+
+router.get(
+  "/edit-project/:id",
+  requireLogin,
+  requireRole(2),
+  showEditProjectForm,
+);
 
 router.post(
   "/edit-project/:id",
+  requireLogin,
   requireRole(2),
   projectValidation,
   processEditProjectForm,
 );
 
-router.get("/new-project", requireRole(2), showNewProjectForm);
+router.get("/new-project", requireLogin, requireRole(2), showNewProjectForm);
 
 router.post(
   "/new-project",
+  requireLogin,
   requireRole(2),
   projectValidation,
   processNewProjectForm,
@@ -159,12 +201,14 @@ router.post(
 
 router.get(
   "/assign-categories/:projectId",
+  requireLogin,
   requireRole(2),
   showAssignCategoriesForm,
 );
 
 router.post(
   "/assign-categories/:projectId",
+  requireLogin,
   requireRole(2),
   processAssignCategoriesForm,
 );

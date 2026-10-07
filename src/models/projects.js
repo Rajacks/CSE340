@@ -161,6 +161,82 @@ const createProject = async (
   return result.rows[0].project_id;
 };
 
+/* =========================
+   Week 6 - Volunteering
+========================= */
+
+/* Add a user as a volunteer for a project */
+const addVolunteer = async (userId, projectId) => {
+  const query = `
+        INSERT INTO public.project_volunteer (
+            user_id,
+            project_id
+        )
+        VALUES ($1, $2)
+        ON CONFLICT (user_id, project_id)
+        DO NOTHING;
+    `;
+
+  const queryParams = [userId, projectId];
+
+  await db.query(query, queryParams);
+};
+
+/* Remove a user from a project's volunteers */
+const removeVolunteer = async (userId, projectId) => {
+  const query = `
+        DELETE FROM public.project_volunteer
+        WHERE user_id = $1
+        AND project_id = $2;
+    `;
+
+  const queryParams = [userId, projectId];
+
+  await db.query(query, queryParams);
+};
+
+/* Get all projects a user has volunteered for */
+const getVolunteerProjects = async (userId) => {
+  const query = `
+        SELECT
+            p.project_id,
+            p.title,
+            p.description,
+            p.location,
+            p.project_date,
+            o.name AS organization_name
+        FROM public.project_volunteer AS pv
+        INNER JOIN public.projects AS p
+            ON pv.project_id = p.project_id
+        INNER JOIN public.organization AS o
+            ON p.organization_id = o.organization_id
+        WHERE pv.user_id = $1
+        ORDER BY p.project_date;
+    `;
+
+  const queryParams = [userId];
+
+  const result = await db.query(query, queryParams);
+
+  return result.rows;
+};
+
+/* Check if a user is already volunteering for a project */
+const checkVolunteer = async (userId, projectId) => {
+  const query = `
+        SELECT 1
+        FROM public.project_volunteer
+        WHERE user_id = $1
+        AND project_id = $2;
+    `;
+
+  const queryParams = [userId, projectId];
+
+  const result = await db.query(query, queryParams);
+
+  return result.rows.length > 0;
+};
+
 export {
   getAllProjects,
   getUpcomingProjects,
@@ -168,4 +244,8 @@ export {
   getProjectsByCategoryId,
   updateProject,
   createProject,
+  addVolunteer,
+  removeVolunteer,
+  getVolunteerProjects,
+  checkVolunteer,
 };

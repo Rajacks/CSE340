@@ -1,6 +1,29 @@
-/* =========================
-   Base
-========================= */
+/* =========================================
+   CSE340 - Base Styles
+   Original color palette preserved
+========================================= */
+
+:root {
+  --navy: #17324d;
+  --navy-light: #214d70;
+  --blue: #174a70;
+  --blue-hover: #0d3857;
+  --blue-accent: #28658f;
+  --background: #f4f7f9;
+  --surface: #ffffff;
+  --text: #24323d;
+  --text-muted: #52616b;
+  --border: #d8e0e6;
+  --border-strong: #b9cbd8;
+  --tag-background: #eaf1f5;
+  --focus: #f0b429;
+  --shadow-sm: 0 4px 12px rgba(23, 50, 77, 0.06);
+  --shadow-md: 0 8px 24px rgba(23, 50, 77, 0.1);
+  --shadow-lg: 0 14px 32px rgba(23, 50, 77, 0.14);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --transition: 0.2s ease;
+}
 
 * {
   box-sizing: border-box;
@@ -10,14 +33,19 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.6;
-  background: #f4f7f9;
-  color: #24323d;
+  font-size: 16px;
+  line-height: 1.7;
+  background: var(--background);
+  color: var(--text);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
 }
 
 img {
@@ -26,25 +54,37 @@ img {
 }
 
 a {
-  color: #174a70;
+  color: var(--blue);
+  text-underline-offset: 3px;
+  transition: color var(--transition);
 }
 
 a:hover {
-  color: #0d3857;
+  color: var(--blue-hover);
 }
 
-a:focus-visible {
-  outline: 3px solid #f0b429;
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
-/* =========================
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* =========================================
    Header & Navigation
-========================= */
+========================================= */
 
 header {
-  background: linear-gradient(135deg, #17324d, #214d70);
+  background: linear-gradient(135deg, var(--navy), var(--navy-light));
   padding: 1rem 2rem;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
   position: sticky;
@@ -53,7 +93,7 @@ header {
 }
 
 nav {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -66,88 +106,115 @@ nav a {
   color: #ffffff;
   text-decoration: none;
   font-weight: 600;
-  padding: 0.7rem 1.1rem;
-  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
   transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+    background-color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
 }
 
 nav a:hover,
 nav a:focus-visible {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.15);
   color: #ffffff;
   text-decoration: none;
   transform: translateY(-1px);
 }
 
-/* =========================
+/* =========================================
    Main Content
-========================= */
+========================================= */
 
 main {
-  max-width: 1100px;
+  width: 100%;
+  max-width: 1200px;
   min-height: calc(100vh - 150px);
   margin: 0 auto;
-  padding: 4.5rem 2rem;
+  padding: 3.5rem 2rem;
+  flex: 1;
 }
 
-/* =========================
+section {
+  margin-bottom: 2.5rem;
+}
+
+section h2 {
+  color: var(--navy);
+  margin-bottom: 1rem;
+  line-height: 1.35;
+}
+
+h1,
+h2,
+h3 {
+  overflow-wrap: anywhere;
+}
+
+p {
+  overflow-wrap: break-word;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 1.5rem 0;
+}
+
+/* =========================================
    Hero & Page Headers
-========================= */
+========================================= */
 
 .hero,
 .page-header {
   text-align: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
+}
+
+.hero {
+  padding: 2.5rem 1rem;
 }
 
 .hero h1,
 .page-header h1 {
-  color: #17324d;
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  color: var(--navy);
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
   line-height: 1.15;
   margin-bottom: 1rem;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.7px;
 }
 
 .hero p,
 .page-header p {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
-  font-size: 1.1rem;
-  color: #52616b;
+  font-size: 1.08rem;
+  color: var(--text-muted);
 }
 
-section {
-  margin-bottom: 3rem;
-}
-
-section h2 {
-  color: #17324d;
-  margin-bottom: 1rem;
-}
-
-/* =========================
+/* =========================================
    Cards & Grids
-========================= */
+========================================= */
 
 .organization-grid,
 .project-list,
 .category-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
+  align-items: stretch;
 }
 
 .organization-card,
 .project-list article,
 .category-list article {
-  background: #ffffff;
-  border: 1px solid #d8e0e6;
-  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 5px 16px rgba(23, 50, 77, 0.08);
+  box-shadow: var(--shadow-sm);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -157,14 +224,14 @@ section h2 {
 .organization-card:hover,
 .project-list article:hover,
 .category-list article:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 28px rgba(23, 50, 77, 0.14);
-  border-color: #b9cbd8;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
 }
 
-/* =========================
+/* =========================================
    Organization Cards
-========================= */
+========================================= */
 
 .organization-card {
   display: flex;
@@ -173,38 +240,35 @@ section h2 {
 
 .organization-card img {
   width: 100%;
-  height: 210px;
+  height: 215px;
   object-fit: cover;
   background: #e8eef3;
 }
 
 .organization-card h2 {
   margin: 1.25rem 1.25rem 0.5rem;
-  font-size: 1.35rem;
+  font-size: 1.3rem;
+  line-height: 1.4;
 }
 
 .organization-card h2 a {
-  color: #17324d;
+  color: var(--navy);
   text-decoration: none;
 }
 
 .organization-card h2 a:hover {
-  color: #28658f;
+  color: var(--blue-accent);
   text-decoration: underline;
 }
 
 .organization-card p {
   margin: 0 1.25rem 1.5rem;
-  color: #52616b;
+  color: var(--text-muted);
 }
 
-/* =========================
+/* =========================================
    Project Cards
-========================= */
-
-.project-list {
-  align-items: stretch;
-}
+========================================= */
 
 .project-list > h2 {
   grid-column: 1 / -1;
@@ -217,35 +281,35 @@ section h2 {
 
 .project-list article h2,
 .project-list article h3 {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.85rem;
   font-size: 1.25rem;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .project-list article h2 a,
 .project-list article h3 a {
-  color: #17324d;
+  color: var(--navy);
   text-decoration: none;
 }
 
 .project-list article h2 a:hover,
 .project-list article h3 a:hover {
-  color: #28658f;
+  color: var(--blue-accent);
   text-decoration: underline;
 }
 
 .project-list article p {
-  margin-bottom: 0.9rem;
-  color: #52616b;
+  margin-bottom: 0.8rem;
+  color: var(--text-muted);
 }
 
 .project-list article strong {
   color: #34495e;
 }
 
-/* =========================
+/* =========================================
    Category Cards
-========================= */
+========================================= */
 
 .category-list article {
   padding: 1.5rem;
@@ -253,53 +317,54 @@ section h2 {
 
 .category-list article h2 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   line-height: 1.4;
 }
 
 .category-list article h2 a {
-  color: #17324d;
+  color: var(--navy);
   text-decoration: none;
 }
 
 .category-list article h2 a:hover {
-  color: #28658f;
+  color: var(--blue-accent);
   text-decoration: underline;
 }
 
-/* =========================
+/* =========================================
    Detail Pages
-========================= */
+========================================= */
 
 .organization-details,
 .project-details {
-  background: #ffffff;
-  border: 1px solid #d8e0e6;
-  border-radius: 14px;
-  padding: 2rem;
-  box-shadow: 0 5px 16px rgba(23, 50, 77, 0.07);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-md);
 }
 
 .organization-details > p,
 .project-details > p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 }
 
 .organization-details strong,
 .project-details strong {
-  color: #17324d;
+  color: var(--navy);
 }
 
-/* =========================
+/* =========================================
    Organization Detail Header
-========================= */
+========================================= */
 
 .organization-header {
   display: grid;
-  grid-template-columns: 160px 1fr 160px;
+  grid-template-columns: 140px minmax(0, 1fr) 140px;
   align-items: center;
   gap: 1.5rem;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
 .organization-logo-container {
@@ -316,12 +381,13 @@ section h2 {
 
 .organization-info {
   text-align: center;
+  min-width: 0;
 }
 
 .organization-info h1 {
-  color: #17324d;
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  line-height: 1.15;
+  color: var(--navy);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.2;
   margin-bottom: 1rem;
   letter-spacing: -0.5px;
 }
@@ -329,17 +395,17 @@ section h2 {
 .organization-info p {
   max-width: 720px;
   margin: 0 auto;
-  font-size: 1.1rem;
-  color: #52616b;
+  font-size: 1.05rem;
+  color: var(--text-muted);
 }
 
 .organization-header-space {
-  width: 160px;
+  width: 140px;
 }
 
-/* =========================
+/* =========================================
    Category Tags
-========================= */
+========================================= */
 
 .category-tags {
   margin-top: 1.5rem;
@@ -350,38 +416,246 @@ section h2 {
 .category-tags strong {
   display: block;
   margin-bottom: 0.75rem;
-  color: #17324d;
+  color: var(--navy);
 }
 
 .category-tags a {
   display: inline-block;
   margin: 0 0.5rem 0.5rem 0;
-  padding: 0.4rem 0.8rem;
+  padding: 0.4rem 0.85rem;
   border: 1px solid #c5d5e0;
   border-radius: 999px;
-  background: #eaf1f5;
-  color: #17324d;
+  background: var(--tag-background);
+  color: var(--navy);
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
   transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+    background-color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
 }
 
 .category-tags a:hover,
 .category-tags a:focus-visible {
   background: #dce8ef;
   border-color: #9fb8c9;
-  color: #17324d;
+  color: var(--navy);
   text-decoration: none;
   transform: translateY(-1px);
 }
 
-/* =========================
-   General Buttons / Links
-========================= */
+/* =========================================
+   Buttons
+   Visual styling only; existing form actions
+   and routes remain unchanged.
+========================================= */
+
+button,
+input[type="submit"],
+input[type="button"],
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.2rem;
+  border: 1px solid var(--navy);
+  border-radius: var(--radius-sm);
+  background: var(--navy);
+  color: #ffffff;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(23, 50, 77, 0.12);
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition);
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.button:hover {
+  background: var(--navy-light);
+  border-color: var(--navy-light);
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 5px 12px rgba(23, 50, 77, 0.18);
+  transform: translateY(-1px);
+}
+
+button:active,
+input[type="submit"]:active,
+input[type="button"]:active,
+.button:active {
+  transform: translateY(0);
+}
+
+button:disabled,
+input[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================================
+   Forms: Login, Registration & Admin
+========================================= */
+
+form {
+  margin-top: 0.75rem;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+form
+  input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not(
+    [type="button"]
+  ),
+form select,
+form textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #c5d1da;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: var(--text);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+form
+  input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not(
+    [type="button"]
+  ):focus,
+form select:focus,
+form textarea:focus {
+  border-color: var(--blue-accent);
+  box-shadow: 0 0 0 3px rgba(40, 101, 143, 0.12);
+  outline: none;
+}
+
+form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+form input[type="checkbox"],
+form input[type="radio"] {
+  width: auto;
+  margin-right: 0.4rem;
+  accent-color: var(--navy);
+}
+
+form p {
+  margin-bottom: 1rem;
+}
+
+form button,
+form input[type="submit"] {
+  margin-top: 0.5rem;
+}
+
+/* =========================================
+   Volunteer Section - Week 6
+========================================= */
+
+.volunteer-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--navy-light);
+  border-radius: var(--radius);
+  background: #f8fafc;
+}
+
+.volunteer-section h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.volunteer-section p {
+  margin-bottom: 0.85rem;
+}
+
+.volunteer-section form {
+  margin-top: 0.5rem;
+}
+
+/* =========================================
+   Dashboard - Week 6
+========================================= */
+
+.volunteer-projects {
+  margin-top: 1.5rem;
+}
+
+.volunteer-projects > h2 {
+  margin-bottom: 1.25rem;
+}
+
+.volunteer-project {
+  margin-bottom: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+.volunteer-project:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.volunteer-project h3 {
+  margin-bottom: 0.65rem;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.volunteer-project h3 a {
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.volunteer-project h3 a:hover {
+  color: var(--blue-accent);
+  text-decoration: underline;
+}
+
+.volunteer-project p {
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+}
+
+.volunteer-project hr {
+  margin-top: 1.25rem;
+}
+
+.volunteer-project:last-child hr {
+  display: none;
+}
+
+/* =========================================
+   General Content Links
+========================================= */
 
 .organization-details a,
 .project-details > p > a {
@@ -393,41 +667,107 @@ section h2 {
   text-decoration: underline;
 }
 
-/* =========================
+/* =========================================
+   Login & Registration Content
+========================================= */
+
+main > form {
+  max-width: 520px;
+  margin: 1.5rem auto 2rem;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+main > form > p {
+  margin-bottom: 1.25rem;
+}
+
+main > form > button,
+main > form > input[type="submit"] {
+  width: 100%;
+}
+
+/* =========================================
+   Flash Messages - Week 4
+========================================= */
+
+.alert {
+  padding: 0.9rem 1.1rem;
+  margin: 1rem 0 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* =========================================
    Footer
-========================= */
+========================================= */
 
 footer {
-  background: #17324d;
+  background: var(--navy);
   color: #ffffff;
   text-align: center;
   padding: 1.5rem 1rem;
-  margin-top: 2rem;
+  margin-top: auto;
 }
 
 footer p {
   margin: 0;
 }
 
-/* =========================
-   Responsive Design
-========================= */
+/* =========================================
+   Responsive Design - Tablets
+========================================= */
 
 @media (max-width: 900px) {
   .organization-grid,
   .project-list,
   .category-list {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   main {
-    padding: 3.5rem 1.5rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .organization-header {
+    grid-template-columns: 100px minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .organization-logo {
+    width: 90px;
+    height: 90px;
+  }
+
+  .organization-header-space {
+    display: none;
   }
 }
 
+/* =========================================
+   Responsive Design - Mobile
+========================================= */
+
 @media (max-width: 600px) {
   header {
-    padding: 0.75rem 1rem;
+    padding: 0.75rem;
   }
 
   nav {
@@ -435,22 +775,26 @@ footer p {
   }
 
   nav a {
-    padding: 0.6rem 0.75rem;
-    font-size: 0.95rem;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.9rem;
   }
 
   main {
-    padding: 2.5rem 1rem;
+    padding: 2rem 1rem;
+  }
+
+  .hero {
+    padding: 1.5rem 0.25rem;
   }
 
   .hero,
   .page-header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .hero h1,
   .page-header h1 {
-    font-size: 2.2rem;
+    font-size: clamp(1.9rem, 8vw, 2.4rem);
   }
 
   .hero p,
@@ -461,8 +805,8 @@ footer p {
   .organization-grid,
   .project-list,
   .category-list {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.1rem;
   }
 
   .organization-card img {
@@ -473,26 +817,99 @@ footer p {
   .project-details {
     padding: 1.25rem;
   }
+
+  .organization-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .organization-logo-container {
+    justify-content: center;
+  }
+
+  .organization-info h1 {
+    font-size: 2rem;
+  }
+
+  .volunteer-section,
+  .volunteer-project {
+    padding: 1.1rem;
+  }
+
+  main > form {
+    padding: 1.25rem;
+  }
+
+  button,
+  input[type="submit"],
+  input[type="button"],
+  .button {
+    max-width: 100%;
+  }
 }
 
-/* =========================
-   Week 4 - Flash Messages
-========================= */
+/* =========================================
+   Accessibility: Reduced Motion
+========================================= */
 
-.alert {
-  padding: 12px 16px;
-  margin: 20px 0;
-  border-radius: 4px;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
-.alert-success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+/* Center Login and Registration page headings */
+main > h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #17324d;
 }
 
-.alert-error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+/* Keep login and registration forms centered */
+main > form {
+  width: 100%;
+  max-width: 520px;
+  margin: 1.5rem auto 2rem;
+}
+
+/* Center the text below the form, such as Register or Login links */
+main > form + p {
+  text-align: center;
+  margin: 1rem auto 2rem;
+}
+
+/* Fix footer positioning and prevent content overlap */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+footer {
+  position: static;
+  width: 100%;
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+/* Philippine flag footer icon */
+.philippine-flag {
+  width: 30px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }

@@ -1,3 +1,4 @@
+```ejs
 <%- include('partials/header', { title: title }) %>
 
 <section class="page-header">
@@ -40,6 +41,38 @@
     <% }) %>
   </div>
 
+  <!-- Week 6: Project Volunteering -->
+  <% if (user) { %>
+    <section class="volunteer-section">
+      <h2>Volunteer for This Project</h2>
+
+      <% if (isVolunteer) { %>
+        <p>You are currently volunteering for this project.</p>
+
+        <form
+          method="POST"
+          action="/project/<%= project.project_id %>/remove-volunteer"
+        >
+          <button type="submit">
+            Remove My Volunteer Signup
+          </button>
+        </form>
+      <% } else { %>
+        <p>Interested in helping with this project?</p>
+
+        <form
+          method="POST"
+          action="/project/<%= project.project_id %>/volunteer"
+        >
+          <button type="submit">
+            Volunteer for This Project
+          </button>
+        </form>
+      <% } %>
+    </section>
+  <% } %>
+  <!-- End Week 6: Project Volunteering -->
+
   <% if (user && user.role_id === 2) { %>
     <p>
       <a href="/edit-project/<%= project.project_id %>">
@@ -60,3 +93,4 @@
 </section>
 
 <%- include('partials/footer') %>
+```
